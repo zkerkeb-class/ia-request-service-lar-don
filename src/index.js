@@ -1,9 +1,8 @@
-import axios from "axios"
+const axios = require('axios');
 require('dotenv').config();
 const express = require('express');
 const PORT = process.env.PORT;
-import openai from "./config/open-ai";
-import {getChampion} from "./controllers/riot.controller";
+const openai = require('./config/open-ai');
 const app = express();
 const cors = require('cors');
 
@@ -27,7 +26,7 @@ app.post('/chat', async (req, res) => {
             })
 
         const content = ' Voici un champion du jeu League of Legend, voici toute ces informations au format json' +
-            ' tu es desormais ce champion : ' + contentChamp
+            ' tu es desormais ce champion : ' + JSON.stringify(contentChamp)
         await axios.post(`${process.env.BDD_API}/`,
             {
                content:content
@@ -36,7 +35,7 @@ app.post('/chat', async (req, res) => {
                 messageHistory = response.data.history;
             })
             .catch(error => {
-                console.error('Erreur lors de l\'appel BDD : ', error.response.data);
+                console.error('Erreur lors de l\'appel BDD : ', error);
             })
     } else {
         await axios.get(`${process.env.BDD_API}/${chatId}`)
@@ -49,7 +48,8 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
-        const messages = messageHistory.map(([role,content]) => ({role,content}));
+        const messages = messageHistory.map(({ role, content }) => ({ role, content }));
+
         messages.push({role: 'user', content:message});
 
         const completion = await openai.chat.completions.create({
