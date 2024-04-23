@@ -10,12 +10,13 @@ app.use(express.json());
 app.use(cors());
 
 let messageHistory = []
+let chatId;
 app.post('/chat', async (req, res) => {
-    const { message,chatId,champion } = req.body;
+    const { message,champion } = req.body;
     if (!message) {
         return res.status(400).send({ error: 'No message provided' });
     }
-    if(chatId === undefined) {
+    if(req.body.chatId === undefined) {
         let contentChamp;
         await axios.get(`https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion/${champion}.json`)
             .then(response => {
@@ -33,14 +34,16 @@ app.post('/chat', async (req, res) => {
             })
             .then(response => {
                 messageHistory = response.data.history;
+                chatId = response.data._id
             })
             .catch(error => {
                 console.error('Erreur lors de l\'appel BDD : ', error);
             })
     } else {
-        await axios.get(`${process.env.BDD_API}/${chatId}`)
+        await axios.get(`${process.env.BDD_API}/${req.body.chatId}`)
             .then(response => {
                 messageHistory = response.data.history;
+                chatId = response.data._id
             })
             .catch(error => {
                 console.error('Erreur lors de l\'appel BDD : ', error.response.data);
@@ -57,7 +60,7 @@ app.post('/chat', async (req, res) => {
             messages: messages,
         });
 
-        const completionText = completion.data.choices[0].message.content
+        const completionText = completion.choices[0].message.content
         messageHistory.push({role: 'user', content:message});
         messageHistory.push({role: 'assistant', content: completionText});
 
