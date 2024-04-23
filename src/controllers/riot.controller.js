@@ -1,10 +1,13 @@
 exports.getChampion = async (req, res) => {
   const { champion } = req.params;
   try {
-    const response = await axios.get(
+    fetch(
       `https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion/${champion}.json`
-    );
-    res.send(response.data.data[champion]);
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        res.send(data);
+      });
   } catch (error) {
     console.error('Error calling Riot API:', error);
     res.status(500).send({ error: 'Failed to fetch champion data' });
@@ -13,10 +16,13 @@ exports.getChampion = async (req, res) => {
 
 exports.getAllChampions = async (req, res) => {
   try {
-    const response = await axios.get(
+    fetch(
       'https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion.json'
-    );
-    res.send(response.data.data);
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        res.send(data);
+      });
   } catch (error) {
     console.error('Error calling Riot API:', error);
     res.status(500).send({ error: 'Failed to fetch champion data' });
