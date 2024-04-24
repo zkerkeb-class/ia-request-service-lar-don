@@ -74,7 +74,7 @@ app.post('/chat', async (req, res) => {
                 console.error('Erreur lors de l\'appel BDD : ', error.response.data);
             })
 
-        return res.status(200).json({messageHistory : messageHistory});
+        return res.status(200).json({_id:chatId,messageHistory : messageHistory});
     } catch (error) {
         console.error('Error calling OpenAI API:', error);
         res.status(500).send({ error: 'Failed to fetch response from OpenAI' });
