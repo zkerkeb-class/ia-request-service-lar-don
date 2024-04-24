@@ -18,11 +18,9 @@ app.post('/chat', async (req, res) => {
   }
   if (!req.body.chatId) {
     let contentChamp;
-    const trimmedChampion = champion.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[ .,']/g, '');
-    
     await axios
       .get(
-        `https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion/${trimmedChampion}.json`
+        `https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion/${champion}.json`
       )
       .then((response) => {
         contentChamp = response.data;
