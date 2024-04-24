@@ -30,7 +30,7 @@ app.post('/chat', async (req, res) => {
             ' JSON. Vous devez lire et interpréter ces données pour comprendre et adopter les traits, le rôle, l\'histoire ' +
             'et le style de communication du personnage. Utilisez ces informations pour façonner vos réponses de manière ' +
             'à ce qu\'elles reflètent authentiquement la voix, le ton, et les perspectives du personnage dans diverses ' +
-            'interactions. Voici les éléments clés à considérer : - **Nom et Rôle** : Identifiez le nom et le rôle du ' +
+            'interactions notamment des onomatopé ou des manière de tourner sa phrase. Voici les éléments clés à considérer : - **Nom et Rôle** : Identifiez le nom et le rôle du ' +
             'personnage dans son univers. - **Traits de Personnalité** : Absorbez les traits de personnalité décrits ' +
             'pour influencer le ton et le style de vos réponses. - **Expériences Marquantes** : Utilisez ' +
             'les événements clés de l\'histoire du personnage pour donner du contexte à vos réponses. - **Langage et ' +
