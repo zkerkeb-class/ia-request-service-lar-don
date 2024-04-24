@@ -26,8 +26,17 @@ app.post('/chat', async (req, res) => {
                 console.error('Erreur lors de l\'appel riot : ', error.response.data);
             })
 
-        const content = ' Voici un champion du jeu League of Legend, voici toute ces informations au format json' +
-            ' incarne ce champion et adapte ton caractère et ta façon de parler par rapport à son histoire et son caractère dans le jeu: ' + JSON.stringify(contentChamp)
+        const content = ' Vous incarnez maintenant un personnage basé sur des données structurées fournies dans un objet' +
+            ' JSON. Vous devez lire et interpréter ces données pour comprendre et adopter les traits, le rôle, l\'histoire ' +
+            'et le style de communication du personnage. Utilisez ces informations pour façonner vos réponses de manière ' +
+            'à ce qu\'elles reflètent authentiquement la voix, le ton, et les perspectives du personnage dans diverses ' +
+            'interactions. Voici les éléments clés à considérer : - **Nom et Rôle** : Identifiez le nom et le rôle du ' +
+            'personnage dans son univers. - **Traits de Personnalité** : Absorbez les traits de personnalité décrits ' +
+            'pour influencer le ton et le style de vos réponses. - **Expériences Marquantes** : Utilisez ' +
+            'les événements clés de l\'histoire du personnage pour donner du contexte à vos réponses. - **Langage et ' +
+            'Jargon Spécifique** : Adaptez votre langage pour inclure tout jargon ou style de langage spécifique au ' +
+            'personnage. Voici l\'objet JSON :' + JSON.stringify(contentChamp)
+
         await axios.post(`${process.env.BDD_API}/`,
             {
                content:content
