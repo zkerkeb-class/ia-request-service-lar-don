@@ -16,7 +16,7 @@ app.post('/chat', async (req, res) => {
     if (!message) {
         return res.status(400).send({ error: 'No message provided' });
     }
-    if(req.body.chatId === undefined) {
+    if(!req.body.chatId) {
         let contentChamp;
         await axios.get(`https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion/${champion}.json`)
             .then(response => {
