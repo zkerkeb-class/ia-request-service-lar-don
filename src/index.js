@@ -27,7 +27,7 @@ app.post('/chat', async (req, res) => {
             })
 
         const content = ' Voici un champion du jeu League of Legend, voici toute ces informations au format json' +
-            ' incarne ce champion et adapte ton caractère par rapport à son histoire : ' + JSON.stringify(contentChamp)
+            ' incarne ce champion et adapte ton caractère et ta façon de parler par rapport à son histoire et son caractère dans le jeu: ' + JSON.stringify(contentChamp)
         await axios.post(`${process.env.BDD_API}/`,
             {
                content:content
