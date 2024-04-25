@@ -5,9 +5,12 @@ const PORT = process.env.PORT;
 const openai = require('./config/open-ai');
 const app = express();
 const cors = require('cors');
+const {webMetrics} = require("./utils/webMetrics");
 
 app.use(express.json());
 app.use(cors());
+
+app.get('/metrics',webMetrics);
 
 let messageHistory = [];
 let chatId;
