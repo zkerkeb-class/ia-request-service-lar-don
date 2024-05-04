@@ -5,12 +5,12 @@ const PORT = process.env.PORT;
 const openai = require('./config/open-ai');
 const app = express();
 const cors = require('cors');
-const {webMetrics} = require("./utils/webMetrics");
+const { webMetrics } = require('./utils/webMetrics');
 
 app.use(express.json());
 app.use(cors());
 
-app.get('/metrics',webMetrics);
+app.get('/metrics', webMetrics);
 
 let messageHistory = [];
 let chatId;
@@ -22,9 +22,7 @@ app.post('/chat', async (req, res) => {
   if (!req.body.chatId) {
     let contentChamp;
     await axios
-      .get(
-        `https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion/${champion}.json`
-      )
+      .get(`${process.env.LOL_API_URL}/champion/${champion}.json`)
       .then((response) => {
         contentChamp = response.data;
       })
@@ -38,7 +36,9 @@ app.post('/chat', async (req, res) => {
     - **Expériences Marquantes** : Utilisez les événements clés de l'histoire du personnage pour donner du contexte à vos réponses;
     - **Langage et Jargon Spécifique** : Adaptez votre langage pour inclure tout jargon ou style de langage spécifique au personnage. 
 
-    Incarne le champion comme si nous nous croisions dans la faille de l'invocateur. Donc si un champion ne parle pas dans le jeu, il ne sera pas capable de parler quand tu l'incarneras. Voici l'objet JSON : ${JSON.stringify(contentChamp)}`
+    Incarne le champion comme si nous nous croisions dans la faille de l'invocateur. Donc si un champion ne parle pas dans le jeu, il ne sera pas capable de parler quand tu l'incarneras. Voici l'objet JSON : ${JSON.stringify(
+      contentChamp
+    )}`;
 
     await axios
       .post(`${process.env.BDD_API}/`, {

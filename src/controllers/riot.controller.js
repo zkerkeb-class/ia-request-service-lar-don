@@ -1,9 +1,7 @@
 exports.getChampion = async (req, res) => {
   const { champion } = req.params;
   try {
-    fetch(
-      `https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion/${champion}.json`
-    )
+    fetch(`${process.env.LOL_API_URL}/champion/${champion}.json`)
       .then((response) => response.json())
       .then((data) => {
         res.send(data);
@@ -16,9 +14,7 @@ exports.getChampion = async (req, res) => {
 
 exports.getAllChampions = async (req, res) => {
   try {
-    fetch(
-      'https://ddragon.leagueoflegends.com/cdn/14.8.1/data/fr_FR/champion.json'
-    )
+    fetch(`${process.env.LOL_API_URL}/champion.json`)
       .then((response) => response.json())
       .then((data) => {
         res.send(data);
