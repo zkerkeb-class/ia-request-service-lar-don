@@ -1,4 +1,4 @@
-# WEB SERVICE (Ynov) - Service de traitement des requêtes IA
+# WEB SERVICE  - Service de traitement des requêtes IA
 
 ## Description du service
 
